@@ -1,21 +1,27 @@
+document.addEventListener('DOMContentLoaded', function() {
+  fetchWeatherData();
+});
+
 function fetchWeatherData() {
-    const apiUrl = 'https://sgbzwmdf00.execute-api.us-east-1.amazonaws.com/prod/forecast'; // Replace with your API Gateway URL
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => displayWeatherData(data))
-        .catch(error => console.error('Error fetching weather data:', error));
+  const apiUrl = 'https://sgbzwmdf00.execute-api.us-east-1.amazonaws.com/prod/forecast';
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => displayWeatherData(data))
+    .catch(error => console.error('Error fetching weather data:', error));
 }
 
 function displayWeatherData(data) {
-    const weatherDiv = document.getElementById('weather');
-    // Assuming data contains a 'current' object with 'temperature_2m' and 'wind_speed_10m'
-    const currentWeather = data.current;
-    weatherDiv.innerHTML = `
-        <p>Temperature: ${currentWeather.temperature_2m}°C</p>
-        <p>Wind Speed: ${currentWeather.wind_speed_10m} m/s</p>
-    `;
-    // Add more data as needed
-}
+  // Assuming you have an HTML element with id="weather" to display the data
+  const weatherDiv = document.getElementById('weather');
+  const hourlyData = data.hourly;
+  let content = '<h2>Hourly Weather</h2>';
 
-// Call the function to fetch and display weather data when the script loads.
-fetchWeatherData();
+  // Loop through hourly data and create list items for each time point
+  hourlyData.time.forEach((time, index) => {
+    content += `<p>Time: ${time}, Temperature: ${hourlyData.temperature_2m[index]}°C</p>`;
+  });
+
+  // Update the weatherDiv with the new content
+  weatherDiv.innerHTML = content;
+}
