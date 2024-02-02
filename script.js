@@ -1,5 +1,5 @@
 function fetchWeatherData() {
-    const apiUrl = 'https://sgbzwmdf00.execute-api.us-east-1.amazonaws.com/prod'; // Replace with your API Gateway URL
+    const apiUrl = 'https://sgbzwmdf00.execute-api.us-east-1.amazonaws.com/prod/forecast'; // Replace with your API Gateway URL
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => displayWeatherData(data))
