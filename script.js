@@ -1,12 +1,5 @@
-#document.getElementById('findHikeBtn').addEventListener('click', function() #{
-    #Code to handle the find hike action });
-// script.js
-document.addEventListener('DOMContentLoaded', function() {
-    fetchWeatherData();
-});
-
 function fetchWeatherData() {
-    const apiUrl = 'https://your-api-gateway-url'; // Replace with your API Gateway URL
+    const apiUrl = 'https://sgbzwmdf00.execute-api.us-east-1.amazonaws.com/prod'; // Replace with your API Gateway URL
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => displayWeatherData(data))
