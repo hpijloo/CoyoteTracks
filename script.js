@@ -12,16 +12,23 @@ function fetchWeatherData() {
 }
 
 function displayWeatherData(data) {
-  // Assuming you have an HTML element with id="weather" to display the data
   const weatherDiv = document.getElementById('weather');
-  const hourlyData = data.hourly;
-  let content = '<h2>Hourly Weather</h2>';
 
-  // Loop through hourly data and create list items for each time point
-  hourlyData.time.forEach((time, index) => {
-    content += `<p>Time: ${time}, Temperature: ${hourlyData.temperature_2m[index]}°C</p>`;
-  });
+  // Clear any previous content
+  weatherDiv.innerHTML = '';
 
-  // Update the weatherDiv with the new content
-  weatherDiv.innerHTML = content;
+  // Check if the current weather data is available
+  if(data.current) {
+    const currentWeather = data.current;
+    let content = '<h2>Current Weather</h2>';
+    content += `<p>Time: ${currentWeather.time}</p>`;
+    content += `<p>Temperature: ${currentWeather.temperature_2m}°F</p>`;
+    content += `<p>Rain: ${currentWeather.rain} inches</p>`;
+
+    // Update the weatherDiv with the new content
+    weatherDiv.innerHTML = content;
+  } else {
+    // If no data is available, display a message
+    weatherDiv.innerHTML = '<p>Weather data is not available at the moment.</p>';
+  }
 }
